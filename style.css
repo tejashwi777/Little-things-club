@@ -984,3 +984,242 @@ footer {
         flex-wrap: wrap;
     }
 }
+/* LITTLE GAMES ARCADE */
+
+.arcade-welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(115deg, #e9e0f8, #f9e7f0);
+    padding: 28px 35px;
+    border-radius: 20px;
+    margin: 25px 0;
+}
+
+.arcade-welcome h2 {
+    font-family: 'Playfair Display', serif;
+    margin: 10px 0;
+    color: var(--dark);
+}
+
+.arcade-welcome p,
+.game-heading p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.arcade-big-emoji {
+    font-size: 65px;
+}
+
+.game-panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin: 22px 0;
+    box-shadow: 0 8px 25px rgba(65, 45, 95, 0.04);
+}
+
+.game-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.game-heading h2 {
+    font-family: 'Playfair Display', serif;
+    margin: 7px 0;
+    color: var(--dark);
+}
+
+.game-reward {
+    background: #f4effb;
+    color: #8069b5;
+    border-radius: 20px;
+    padding: 9px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.memory-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+.memory-info b {
+    color: #8069b5;
+}
+
+.memory-grid {
+    max-width: 420px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    border: 1px solid #e8def5;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #eee8fa, #fcecf3);
+    color: #9079c4;
+    font-size: 27px;
+    cursor: pointer;
+    transition: transform .2s, background .2s;
+}
+
+.memory-card:hover {
+    transform: translateY(-3px);
+}
+
+.memory-card.flipped,
+.memory-card.matched {
+    background: #fff8fc;
+    border-color: #e7cce0;
+}
+
+.memory-card.matched {
+    opacity: .65;
+    cursor: default;
+}
+
+.game-message {
+    text-align: center;
+    color: #8b78b3;
+    font-size: 13px;
+    margin: 18px 0;
+    min-height: 20px;
+}
+
+.game-panel > .primary-btn {
+    display: block;
+    margin: 0 auto;
+}
+
+.spin-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0 10px;
+}
+
+.spin-pointer {
+    color: #9b80c8;
+    font-size: 23px;
+    margin-bottom: -3px;
+    z-index: 1;
+}
+
+.spin-wheel {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 55px;
+    color: white;
+    background: conic-gradient(
+        #c9b8eb 0deg 60deg,
+        #f4d6e5 60deg 120deg,
+        #e7dff7 120deg 180deg,
+        #f8e8d9 180deg 240deg,
+        #d9c9ef 240deg 300deg,
+        #f2dce9 300deg 360deg
+    );
+    border: 7px solid white;
+    box-shadow: 0 5px 20px #d8cce8;
+    transition: transform 2.5s cubic-bezier(.15,.7,.2,1);
+}
+
+.quiz-box {
+    background: #fbf8ff;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.quiz-number {
+    color: #a18bc8;
+    letter-spacing: 2px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.quiz-box h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--dark);
+    margin: 13px 0 20px;
+}
+
+.quiz-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.quiz-option {
+    padding: 13px;
+    border: 1px solid #e9e0f3;
+    border-radius: 12px;
+    background: white;
+    color: #716887;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.quiz-option:hover {
+    background: #f0eafa;
+    border-color: #cbb9e8;
+}
+
+.quiz-option:disabled {
+    cursor: default;
+    opacity: .75;
+}
+
+.quiz-option.correct {
+    background: #eaf5ec;
+    border-color: #b9d9c0;
+    color: #477a55;
+}
+
+.quiz-option.wrong {
+    background: #fff0f0;
+    border-color: #edcaca;
+    color: #a45d5d;
+}
+
+@media (max-width: 700px) {
+    .arcade-welcome {
+        padding: 22px;
+    }
+
+    .arcade-big-emoji {
+        font-size: 45px;
+    }
+
+    .game-panel {
+        padding: 18px;
+    }
+
+    .memory-grid {
+        gap: 8px;
+    }
+
+    .memory-card {
+        font-size: 22px;
+        border-radius: 11px;
+    }
+
+    .quiz-options {
+        grid-template-columns: 1fr;
+    }
+}
