@@ -30,6 +30,7 @@
             <button class="nav-btn" data-page="garden">✿ <span>Flower shop</span></button>
             <button class="nav-btn" data-page="mail">✉ <span>Little mailbox</span></button>
             <button class="nav-btn" data-page="collection">✧ <span>My collection</span></button>
+            <button class="nav-btn" data-page="games">🎮 <span>Little Games</span></button>
         </nav>
 
         <div class="sidebar-bottom">
@@ -274,7 +275,81 @@
                 <p class="empty-state">Your collection is waiting for its first little treasure 🌷</p>
             </div>
         </section>
+<!-- LITTLE GAMES ARCADE -->
+<section class="page" id="games">
+    <span class="eyebrow">A LITTLE PLAYTIME</span>
+    <h1>Little Games Arcade <span>🎮</span></h1>
+    <p class="subtitle">Take a tiny break and win some little coins.</p>
 
+    <div class="arcade-welcome">
+        <div>
+            <span class="eyebrow">WELCOME TO THE ARCADE</span>
+            <h2>A little fun never hurts ♡</h2>
+            <p>Play, have fun, and collect rewards along the way.</p>
+        </div>
+        <span class="arcade-big-emoji">🧸</span>
+    </div>
+
+    <!-- MEMORY MATCH -->
+    <div class="game-panel">
+        <div class="game-heading">
+            <div>
+                <span class="eyebrow">GAME 01</span>
+                <h2>Memory Match 🃏</h2>
+                <p>Find all four matching pairs!</p>
+            </div>
+            <span class="game-reward">+20 ✿</span>
+        </div>
+
+        <div class="memory-info">
+            <span>Moves: <b id="memoryMoves">0</b></span>
+            <span>Pairs: <b id="memoryPairs">0</b>/4</span>
+        </div>
+
+        <div class="memory-grid" id="memoryGrid"></div>
+        <p class="game-message" id="memoryMessage">Ready when you are ♡</p>
+        <button class="primary-btn" onclick="startMemoryGame()">Start a new round ↻</button>
+    </div>
+
+    <!-- LUCKY SPIN -->
+    <div class="game-panel">
+        <div class="game-heading">
+            <div>
+                <span class="eyebrow">GAME 02</span>
+                <h2>Lucky Spin 🎡</h2>
+                <p>Give it a spin and see what you get!</p>
+            </div>
+            <span class="game-reward">Daily reward</span>
+        </div>
+
+        <div class="spin-area">
+            <div class="spin-pointer">▼</div>
+            <div class="spin-wheel" id="spinWheel">✿</div>
+        </div>
+
+        <p class="game-message" id="spinMessage">Your luck is waiting...</p>
+        <button class="primary-btn" id="spinButton" onclick="spinLuckyWheel()">Spin the wheel ♡</button>
+    </div>
+
+    <!-- DAILY QUIZ -->
+    <div class="game-panel">
+        <div class="game-heading">
+            <div>
+                <span class="eyebrow">GAME 03</span>
+                <h2>Daily Little Quiz ✨</h2>
+                <p>A tiny question for your brain.</p>
+            </div>
+            <span class="game-reward">+10 ✿</span>
+        </div>
+
+        <div class="quiz-box">
+            <span class="quiz-number">TODAY'S QUESTION</span>
+            <h3 id="quizQuestion">Loading your question...</h3>
+            <div class="quiz-options" id="quizOptions"></div>
+            <p class="game-message" id="quizMessage"></p>
+        </div>
+    </div>
+</section>
         <footer>made with a little magic & lots of love · little things club ♡</footer>
 
     </main>
