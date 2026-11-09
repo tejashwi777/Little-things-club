@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Things Club ♡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <span class="logo-icon">✿</span>
+            <div>
+                <h2>little things</h2>
+                <small>your tiny happy place</small>
+            </div>
+        </div>
+
+        <div class="nav-label">YOUR WORLD</div>
+
+        <nav>
+            <button class="nav-btn active" data-page="home">⌂ <span>My little world</span></button>
+            <button class="nav-btn" data-page="room">♡ <span>My cozy room</span></button>
+            <button class="nav-btn" data-page="garden">✿ <span>Flower shop</span></button>
+            <button class="nav-btn" data-page="mail">✉ <span>Little mailbox</span></button>
+            <button class="nav-btn" data-page="collection">✧ <span>My collection</span></button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="tiny-card">
+                <span>☾</span>
+                <p>Little reminder</p>
+                <small>You're allowed to grow at your own pace.</small>
+            </div>
+            <p class="copyright">made with ♡ and a little magic</p>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div class="breadcrumb">little things club <span>/</span> <b id="currentPage">home</b></div>
+            <div class="wallet">
+                <span>✿ <b id="coins">50</b></span>
+                <span>♡ <b id="flowerCount">0</b></span>
+            </div>
+        </header>
+
+        <!-- HOME -->
+        <section class="page active" id="home">
+            <div class="welcome">
+                <div>
+                    <span class="eyebrow">✦ A LITTLE WORLD OF YOUR OWN ✦</span>
+                    <h1>Welcome home,<br><i>little dreamer.</i></h1>
+                    <p>A soft place to land, grow and collect little moments.</p>
+                    <button class="primary-btn" onclick="showPage('room')">Explore my world ↗</button>
+                </div>
+                <div class="welcome-art">
+                    <div class="moon">☾</div>
+                    <div class="cloud cloud-one">☁</div>
+                    <div class="cloud cloud-two">☁</div>
+                    <div class="house">🏡</div>
+                    <div class="sparkle s1">✦</div>
+                    <div class="sparkle s2">✧</div>
+                    <div class="sparkle s3">✦</div>
+                </div>
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">YOUR LITTLE CORNER</span>
+                    <h2>What shall we do today?</h2>
+                </div>
+                <span class="date-label">a day for little things ♡</span>
+            </div>
+
+            <div class="activity-grid">
+                <article class="activity-card room-card" onclick="showPage('room')">
+                    <span class="card-emoji">🧸</span>
+                    <span class="card-arrow">↗</span>
+                    <h3>Cozy room</h3>
+                    <p>Make yourself at home.</p>
+                    <small>decorate & explore</small>
+                </article>
+
+                <article class="activity-card garden-card" onclick="showPage('garden')">
+                    <span class="card-emoji">🌷</span>
+                    <span class="card-arrow">↗</span>
+                    <h3>Flower shop</h3>
+                    <p>Pick a little happiness.</p>
+                    <small>collect flowers</small>
+                </article>
+
+                <article class="activity-card mail-card" onclick="showPage('mail')">
+                    <span class="card-emoji">💌</span>
+                    <span class="card-arrow">↗</span>
+                    <h3>Mailbox</h3>
+                    <p>Something sweet awaits.</p>
+                    <small>open a surprise</small>
+                </article>
+
+                <article class="activity-card collection-card" onclick="showPage('collection')">
+                    <span class="card-emoji">⭐</span>
+                    <span class="card-arrow">↗</span>
+                    <h3>Collections</h3>
+                    <p>All your little treasures.</p>
+                    <small>your growing collection</small>
+                </article>
+            </div>
+
+            <div class="bottom-note">
+                <span>🌙</span>
+                <div>
+                    <b>Remember, little dreamer.</b>
+                    <p>Even the smallest things can make a beautiful life.</p>
+                </div>
+                <span class="note-heart">♡</span>
+            </div>
+        </section>
+
+        <!-- ROOM -->
+        <section class="page" id="room">
+            <span class="eyebrow">YOUR SAFE LITTLE SPACE</span>
+            <h1>My cozy room <span>🧸</span></h1>
+            <p class="subtitle">A room that feels a little like a hug.</p>
+
+            <div class="room-scene" id="roomScene">
+                <div class="room-stars">✦　　　　✧　　✦</div>
+                <div class="window">
+                    <div class="window-moon">☾</div>
+                    <div class="window-stars">✧　✦</div>
+                </div>
+                <div class="shelf">📚　🪴　🕯️</div>
+                <div class="bed">🛏️</div>
+                <div class="room-plant">🪴</div>
+                <div class="room-rug">♡</div>
+                <div class="room-cat">🐈</div>
+                <div class="room-floor"></div>
+            </div>
+
+            <div class="room-controls">
+                <div>
+                    <h3>Make it yours ♡</h3>
+                    <p>Change the little details in your room.</p>
+                </div>
+                <button class="secondary-btn" onclick="decorateRoom()">✨ Add a surprise</button>
+            </div>
+            <div id="roomMessage" class="feedback"></div>
+        </section>
+
+        <!-- GARDEN -->
+        <section class="page" id="garden">
+            <span class="eyebrow">A LITTLE BLOOMING MAGIC</span>
+            <h1>The flower shop <span>🌷</span></h1>
+            <p class="subtitle">Pick some flowers. They look pretty here.</p>
+
+            <div class="garden-banner">
+                <div>
+                    <h2>Flowers for your soul.</h2>
+                    <p>Every flower is a tiny piece of happiness.</p>
+                </div>
+                <span>💐</span>
+            </div>
+
+            <div class="flower-grid">
+                <div class="flower-item">
+                    <span>🌷</span>
+                    <h3>Tulip</h3>
+                    <p>soft little happiness</p>
+                    <button onclick="collectFlower('Tulip','🌷',10)">Collect · 10 ✿</button>
+                </div>
+                <div class="flower-item">
+                    <span>🌻</span>
+                    <h3>Sunflower</h3>
+                    <p>a pocket of sunshine</p>
+                    <button onclick="collectFlower('Sunflower','🌻',10)">Collect · 10 ✿</button>
+                </div>
+                <div class="flower-item">
+                    <span>🪻</span>
+                    <h3>Lavender</h3>
+                    <p>for peaceful days</p>
+                    <button onclick="collectFlower('Lavender','🪻',15)">Collect · 15 ✿</button>
+                </div>
+                <div class="flower-item">
+                    <span>🌼</span>
+                    <h3>Daisy</h3>
+                    <p>simple little joy</p>
+                    <button onclick="collectFlower('Daisy','🌼',10)">Collect · 10 ✿</button>
+                </div>
+                <div class="flower-item">
+                    <span>🌸</span>
+                    <h3>Cherry blossom</h3>
+                    <p>beautiful beginnings</p>
+                    <button onclick="collectFlower('Cherry blossom','🌸',20)">Collect · 20 ✿</button>
+                </div>
+                <div class="flower-item">
+                    <span>🪷</span>
+                    <h3>Lotus</h3>
+                    <p>grow through everything</p>
+                    <button onclick="collectFlower('Lotus','🪷',20)">Collect · 20 ✿</button>
+                </div>
+            </div>
+            <div id="gardenMessage" class="feedback"></div>
+        </section>
+
+        <!-- MAILBOX -->
+        <section class="page" id="mail">
+            <span class="eyebrow">A LETTER JUST FOR YOU</span>
+            <h1>Your little mailbox <span>💌</span></h1>
+            <p class="subtitle">A little something to brighten your day.</p>
+
+            <div class="mailbox">
+                <div class="mail-icon">💌</div>
+                <span class="eyebrow">A NOTE FROM THE UNIVERSE</span>
+                <h2>You've got mail!</h2>
+                <p>There might be something you need to hear today.</p>
+                <button class="primary-btn" onclick="openLetter()">Open your letter ♡</button>
+                <div class="letter" id="letter">
+                    <div class="letter-decoration">✧ ･ﾟ: *✧･ﾟ:*</div>
+                    <h2>Dear little dreamer,</h2>
+                    <p id="letterText"></p>
+                    <p class="letter-sign">with love, the universe ♡</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- COLLECTION -->
+        <section class="page" id="collection">
+            <span class="eyebrow">ALL THE LITTLE THINGS</span>
+            <h1>My collection <span>⭐</span></h1>
+            <p class="subtitle">Look at all the lovely things you've gathered.</p>
+
+            <div class="collection-summary">
+                <div><span id="collectionFlowerCount">0</span><small>flowers collected</small></div>
+                <div><span id="collectionUniqueCount">0</span><small>flower varieties</small></div>
+                <div><span id="collectionCoins">50</span><small>little coins</small></div>
+            </div>
+
+            <h3 class="collection-heading">Your flowers ♡</h3>
+            <div id="collectionGrid" class="collection-grid">
+                <p class="empty-state">Your collection is waiting for its first little treasure 🌷</p>
+            </div>
+        </section>
+
+        <footer>made with a little magic & lots of love · little things club ♡</footer>
+
+    </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
