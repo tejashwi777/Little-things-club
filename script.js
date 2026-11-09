@@ -113,6 +113,55 @@ function updateUI() {
     document.getElementById("petCharacter").textContent = emoji;
 }
 
+// MOCHI THE LITTLE COMPANION ♡
+
+function petCompanion() {
+    game.happiness = Math.min(100, game.happiness + 10);
+
+    const messages = [
+        "purrrr... I love you ♡",
+        "hehe, that tickles!",
+        "you're my favourite human!",
+        "more cuddles please!",
+        "mrrp! happy happy!"
+    ];
+
+    const bubble = document.getElementById("petBubble");
+
+    bubble.textContent =
+        messages[Math.floor(Math.random() * messages.length)];
+
+    const pet = document.getElementById("petCharacter");
+
+    pet.classList.remove("excited");
+    void pet.offsetWidth;
+    pet.classList.add("excited");
+
+    saveGame();
+    showToast("Mochi is feeling loved! ♡");
+}
+
+function feedCompanion() {
+    if (game.coins < 5) {
+        showToast("Mochi needs more treats! Collect some coins ♡");
+        return;
+    }
+
+    if (game.happiness >= 100) {
+        showToast("Mochi is already super happy! 😻");
+        return;
+    }
+
+    game.coins -= 5;
+    game.happiness = Math.min(100, game.happiness + 20);
+
+    document.getElementById("petBubble").textContent =
+        "YUM YUM! thank you for the treat 🍓";
+
+    saveGame();
+    showToast("Mochi loved the little treat! 🍓");
+}
+
 
 // Collect flowers
 function collectFlower(name, emoji, price) {
