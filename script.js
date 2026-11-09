@@ -210,6 +210,7 @@ function renderCollection() {
 
 
 
+
 // ROOM DECORATING ♡
 
 const decorations = [
@@ -260,11 +261,8 @@ function decorateRoom() {
 
     game.decorations++;
 
-// START LITTLE THINGS CLUB ♡
-
-updateUI();
-renderCollection();
-renderRoomDecorations();
+    renderRoomDecorations();
+    saveGame();
 
     document.getElementById("roomMessage").textContent =
         `You added a ${item.name} to your cozy room! ♡`;
@@ -315,5 +313,8 @@ function openLetter() {
 }
 
 // Start game
+// START LITTLE THINGS CLUB ♡
+
 updateUI();
 renderCollection();
+renderRoomDecorations();
