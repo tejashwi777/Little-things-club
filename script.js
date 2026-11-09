@@ -73,6 +73,7 @@ function showToast(message) {
 }
 
 // Update wallet and stats
+
 function updateUI() {
     document.getElementById("coins").textContent = game.coins;
 
@@ -87,7 +88,31 @@ function updateUI() {
 
     document.getElementById("collectionUniqueCount").textContent =
         new Set(game.flowers.map(flower => flower.name)).size;
+
+    document.getElementById("happiness").textContent =
+        game.happiness;
+
+    let mood = "Happy";
+    let emoji = "🐈";
+
+    if (game.happiness >= 85) {
+        mood = "Overjoyed";
+        emoji = "😻";
+    } else if (game.happiness >= 50) {
+        mood = "Happy";
+        emoji = "🐈";
+    } else if (game.happiness >= 25) {
+        mood = "Sleepy";
+        emoji = "😿";
+    } else {
+        mood = "Lonely";
+        emoji = "🥺";
+    }
+
+    document.getElementById("petMood").textContent = mood;
+    document.getElementById("petCharacter").textContent = emoji;
 }
+
 
 // Collect flowers
 function collectFlower(name, emoji, price) {
