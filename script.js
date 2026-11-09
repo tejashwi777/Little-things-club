@@ -49,6 +49,9 @@ function showPage(pageName) {
     if (pageName === "collection") {
         renderCollection();
     }
+    if (pageName === "games") {
+    renderArcade();
+}
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
