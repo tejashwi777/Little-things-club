@@ -1,17 +1,30 @@
 
 // LITTLE THINGS CLUB ♡
 
-// Load saved game
-let game = JSON.parse(localStorage.getItem("littleThingsSave")) || {
+// LITTLE THINGS CLUB ♡
+
+const savedGame = JSON.parse(
+    localStorage.getItem("littleThingsSave") || "null"
+);
+
+let game = {
     coins: 50,
     flowers: [],
-    decorations: 0
+    decorations: 0,
+    roomItems: [],
+    happiness: 70,
+    ...savedGame
 };
+
+game.roomItems ||= [];
+game.flowers ||= [];
+game.happiness ??= 70;
 
 function saveGame() {
     localStorage.setItem("littleThingsSave", JSON.stringify(game));
     updateUI();
 }
+
 
 // Navigation
 function showPage(pageName) {
