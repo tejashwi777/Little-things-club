@@ -219,31 +219,69 @@ const decorations = [
     { emoji: "📚", name: "some lovely books" }
 ];
 
-function decorateRoom() {
-    const scene = document.getElementById("roomScene");
-    const message = document.getElementById("roomMessage");
 
+// ROOM DECORATING ♡
+
+const decorations = [
+    { emoji: "🧸", name: "Teddy bear" },
+    { emoji: "🌷", name: "Flower vase" },
+    { emoji: "🕯️", name: "Cozy candle" },
+    { emoji: "⭐", name: "Little star" },
+    { emoji: "🎀", name: "Pretty ribbon" },
+    { emoji: "🐈", name: "Sleepy kitty" },
+    { emoji: "📚", name: "Lovely books" }
+];
+
+function renderRoomDecorations() {
+    const scene = document.getElementById("roomScene");
+
+    scene.querySelectorAll(".room-decoration").forEach(item => {
+        item.remove();
+    });
+
+    game.roomItems.forEach(item => {
+        const decoration = document.createElement("div");
+
+        decoration.className = "room-decoration";
+        decoration.textContent = item.emoji;
+        decoration.title = item.name;
+
+        decoration.style.left = item.x + "%";
+        decoration.style.top = item.y + "%";
+
+        scene.appendChild(decoration);
+    });
+}
+
+function decorateRoom() {
     const item = decorations[
         game.decorations % decorations.length
     ];
 
-    const newDecoration = document.createElement("div");
+    const x = 12 + Math.random() * 76;
+    const y = 12 + Math.random() * 53;
 
-    newDecoration.textContent = item.emoji;
-    newDecoration.style.position = "absolute";
-    newDecoration.style.left = `${15 + Math.random() * 70}%`;
-    newDecoration.style.top = `${12 + Math.random() * 55}%`;
-    newDecoration.style.fontSize = "32px";
-    newDecoration.style.zIndex = "4";
-    newDecoration.title = item.name;
-
-    scene.appendChild(newDecoration);
+    game.roomItems.push({
+        emoji: item.emoji,
+        name: item.name,
+        x: x,
+        y: y
+    });
 
     game.decorations++;
-    saveGame();
 
-    message.textContent = `You added ${item.name} to your room! ♡`;
+// START LITTLE THINGS CLUB ♡
+
+updateUI();
+renderCollection();
+renderRoomDecorations();
+
+    document.getElementById("roomMessage").textContent =
+        `You added a ${item.name} to your cozy room! ♡`;
+
+    showToast(`${item.emoji} A new room decoration!`);
 }
+
 
 // Surprise letters
 const letters = [
