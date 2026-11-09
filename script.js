@@ -208,16 +208,6 @@ function renderCollection() {
     `).join("");
 }
 
-// Decorate the room
-const decorations = [
-    { emoji: "🧸", name: "a little teddy bear" },
-    { emoji: "🌷", name: "a vase of flowers" },
-    { emoji: "🕯️", name: "a cozy candle" },
-    { emoji: "⭐", name: "a little star" },
-    { emoji: "🎀", name: "a pretty ribbon" },
-    { emoji: "🐈", name: "a sleepy kitty" },
-    { emoji: "📚", name: "some lovely books" }
-];
 
 
 // ROOM DECORATING ♡
