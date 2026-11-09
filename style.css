@@ -840,3 +840,147 @@ footer {
     .room-controls { align-items: flex-start; gap: 10px; }
     .room-controls button { padding: 10px; }
 }
+
+/* LITTLE COMPANION */
+
+.companion-card {
+    margin-top: 25px;
+    background: linear-gradient(120deg, #e9e1f7, #f9e6f0);
+    border-radius: 20px;
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.companion-intro {
+    align-self: center;
+}
+
+.companion-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin: 12px 0 8px;
+}
+
+.companion-intro p {
+    font-size: 11px;
+    color: #81778e;
+}
+
+.companion-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.companion-stats span {
+    background: #ffffffa8;
+    padding: 9px 12px;
+    border-radius: 20px;
+    color: #816e9f;
+    font-size: 10px;
+}
+
+.pet-area {
+    text-align: center;
+    background: #ffffff70;
+    border-radius: 17px;
+    padding: 15px;
+    position: relative;
+}
+
+.pet-character {
+    font-size: 65px;
+    margin-top: 10px;
+    cursor: pointer;
+    animation: petFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes petFloat {
+    50% { transform: translateY(-8px); }
+}
+
+.pet-character.excited {
+    animation: petBounce .45s ease;
+}
+
+@keyframes petBounce {
+    50% { transform: translateY(-18px) scale(1.12); }
+}
+
+.pet-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    margin-top: 3px;
+}
+
+.pet-bubble {
+    background: white;
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 9px;
+    font-size: 10px;
+    color: #8b78a8;
+}
+
+.pet-sparkles {
+    color: #b29ad7;
+    font-size: 13px;
+}
+
+.pet-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+}
+
+.pet-actions button {
+    background: #fff;
+    color: #826eac;
+    border-radius: 10px;
+    padding: 11px 16px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.pet-actions button:hover {
+    background: #f7efff;
+}
+
+/* ROOM DECORATIONS */
+
+.room-decoration {
+    position: absolute;
+    z-index: 5;
+    font-size: 30px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    animation: appear .3s ease;
+}
+
+.room-decoration:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+@media (max-width: 700px) {
+    .companion-card {
+        grid-template-columns: 1fr 120px;
+        padding: 16px;
+    }
+
+    .companion-intro h2 {
+        font-size: 17px;
+    }
+
+    .pet-character {
+        font-size: 48px;
+    }
+
+    .pet-actions {
+        flex-wrap: wrap;
+    }
+}
