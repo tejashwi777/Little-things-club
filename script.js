@@ -126,7 +126,7 @@ function petCompanion() {
         "hehe, that tickles!",
         "you're my favourite human!",
         "more cuddles please!",
-        "mrrp! happy happy!"
+        "mrrp!  happy!"
     ];
 
     const bubble = document.getElementById("petBubble");
