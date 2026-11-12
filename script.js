@@ -53,7 +53,7 @@ function showPage(pageName) {
     renderArcade();
 }
 
-    window.scrollTo({ top: 0, behavior: "smoth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // Sidebar navigation
