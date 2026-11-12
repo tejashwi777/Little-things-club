@@ -109,7 +109,7 @@ function updateUI() {
         emoji = "😿";
     } else {
         mood = "Lonely";
-        emoji = "";
+        emoji = "🥺";
     }
 
     document.getElementById("petMood").textContent = mood;
