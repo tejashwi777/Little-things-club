@@ -349,6 +349,63 @@
             <p class="game-message" id="quizMessage"></p>
         </div>
     </div>
+    <!-- QUIZ PARTY -->
+<div class="game-panel quiz-party-panel">
+    <div class="game-heading">
+        <div>
+            <span class="eyebrow">GAME 04</span>
+            <h2>Quiz Party 🎉</h2>
+            <p>Five questions. One tiny challenge!</p>
+        </div>
+        <span class="game-reward">Up to +10 ✿</span>
+    </div>
+
+    <div id="partyStart">
+        <label for="partyCategory">Pick your quiz topic</label>
+        <select id="partyCategory" class="party-select">
+            <option value="general">General Knowledge 🌎</option>
+            <option value="animals">Cute Animals 🐈</option>
+            <option value="food">Foodie Corner 🍓</option>
+            <option value="space">Space & Science 🌙</option>
+        </select>
+
+        <button class="primary-btn" onclick="startQuizParty()">
+            Let's play! ♡
+        </button>
+    </div>
+
+    <div id="partyGame" style="display:none;">
+        <div class="party-progress">
+            <span id="partyQuestionNumber">QUESTION 1/5</span>
+            <span>Score: <b id="partyScore">0</b></span>
+        </div>
+
+        <div class="party-progress-track">
+            <div id="partyProgressBar"></div>
+        </div>
+
+        <h3 id="partyQuestion" class="party-question"></h3>
+        <div id="partyOptions" class="quiz-options"></div>
+        <p id="partyFeedback" class="game-message"></p>
+    </div>
+
+    <div id="partyResult" style="display:none;" class="party-result">
+        <div id="partyResultEmoji" class="party-result-emoji">🏆</div>
+        <h3 id="partyResultTitle">You did it!</h3>
+        <p id="partyResultText"></p>
+        <button class="primary-btn" onclick="resetQuizParty()">
+            Play another round ↻
+        </button>
+    </div>
+</div>
+
+<!-- SOUND CONTROL -->
+<div class="sound-control">
+    <span>Little game sounds</span>
+    <button id="soundToggle" class="sound-toggle" onclick="toggleGameSound()">
+        🔊 Sounds on
+    </button>
+</div>
 </section>
         <footer>made with a little magic & lots of love · little things club ♡</footer>
 
