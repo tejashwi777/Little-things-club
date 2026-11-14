@@ -1052,3 +1052,364 @@ function finishMochiPop() {
         playGameSound("win");
     }
 }
+
+// ==========================================
+// 🌍 TRIVIA WORLD
+// ==========================================
+
+const triviaBank = [
+
+    // GENERAL KNOWLEDGE
+    ["general","easy","How many days are in a week?",["5","6","7","8"],"7"],
+    ["general","easy","What is the capital of France?",["Rome","Paris","Madrid","Berlin"],"Paris"],
+    ["general","easy","Which is the largest ocean?",["Atlantic","Indian","Arctic","Pacific"],"Pacific"],
+    ["general","medium","How many continents are there?",["5","6","7","8"],"7"],
+    ["general","medium","Which country is known as the Land of the Rising Sun?",["China","Japan","Thailand","South Korea"],"Japan"],
+    ["general","medium","What is the smallest prime number?",["0","1","2","3"],"2"],
+    ["general","hard","Which language has the most native speakers?",["English","Spanish","Mandarin Chinese","Hindi"],"Mandarin Chinese"],
+    ["general","hard","What is the currency of Switzerland?",["Euro","Swiss franc","Pound","Krone"],"Swiss franc"],
+    ["general","hard","Which is the world's largest island?",["Madagascar","Greenland","Borneo","New Guinea"],"Greenland"],
+    ["general","easy","How many colours are traditionally in a rainbow?",["5","6","7","8"],"7"],
+
+    // SCIENCE
+    ["science","easy","Which planet is known as the Red Planet?",["Venus","Mars","Jupiter","Mercury"],"Mars"],
+    ["science","easy","What do humans breathe in to survive?",["Carbon dioxide","Nitrogen","Oxygen","Hydrogen"],"Oxygen"],
+    ["science","easy","What is H2O commonly known as?",["Salt","Water","Oxygen","Sugar"],"Water"],
+    ["science","medium","What is the chemical symbol for gold?",["Ag","Au","Fe","Go"],"Au"],
+    ["science","medium","Which organ pumps blood around the body?",["Lungs","Brain","Heart","Liver"],"Heart"],
+    ["science","medium","What is the centre of an atom called?",["Electron","Nucleus","Proton","Shell"],"Nucleus"],
+    ["science","hard","What is the approximate speed of light?",["300,000 km/s","30,000 km/s","150,000 km/s","500,000 km/s"],"300,000 km/s"],
+    ["science","hard","Which element has atomic number 1?",["Helium","Oxygen","Hydrogen","Carbon"],"Hydrogen"],
+    ["science","hard","What is the SI unit of electric resistance?",["Volt","Watt","Ohm","Ampere"],"Ohm"],
+    ["science","easy","Which part of a plant absorbs water?",["Flower","Root","Leaf","Stem"],"Root"],
+
+    // HISTORY
+    ["history","easy","Who was the first person to walk on the Moon?",["Buzz Aldrin","Neil Armstrong","Yuri Gagarin","Michael Collins"],"Neil Armstrong"],
+    ["history","easy","The ancient pyramids are most associated with which country?",["Greece","Egypt","India","Mexico"],"Egypt"],
+    ["history","easy","Which ship famously sank in 1912?",["Britannic","Titanic","Mayflower","Santa Maria"],"Titanic"],
+    ["history","medium","In which year did World War II end?",["1943","1944","1945","1946"],"1945"],
+    ["history","medium","Who was the first President of the United States?",["Abraham Lincoln","George Washington","John Adams","Thomas Jefferson"],"George Washington"],
+    ["history","medium","Which civilisation built Machu Picchu?",["Maya","Aztec","Inca","Roman"],"Inca"],
+    ["history","hard","In which year did the French Revolution begin?",["1776","1789","1815","1848"],"1789"],
+    ["history","hard","Who was the first emperor of Rome?",["Julius Caesar","Augustus","Nero","Constantine"],"Augustus"],
+    ["history","hard","Which ancient city was buried by Mount Vesuvius?",["Athens","Pompeii","Sparta","Carthage"],"Pompeii"],
+    ["history","easy","Which wall was built to protect ancient China?",["Berlin Wall","Great Wall","Hadrian's Wall","Western Wall"],"Great Wall"],
+
+    // GEOGRAPHY
+    ["geography","easy","What is the capital of Japan?",["Seoul","Tokyo","Beijing","Bangkok"],"Tokyo"],
+    ["geography","easy","Which is the largest continent?",["Africa","Europe","Asia","Australia"],"Asia"],
+    ["geography","easy","Which country has the city of Barcelona?",["Portugal","Spain","Italy","France"],"Spain"],
+    ["geography","medium","Which river flows through Egypt?",["Amazon","Nile","Danube","Yangtze"],"Nile"],
+    ["geography","medium","What is the capital of Canada?",["Toronto","Vancouver","Ottawa","Montreal"],"Ottawa"],
+    ["geography","medium","Which desert is the largest hot desert?",["Gobi","Sahara","Kalahari","Mojave"],"Sahara"],
+    ["geography","hard","Which country has the most natural lakes?",["Russia","Canada","Brazil","China"],"Canada"],
+    ["geography","hard","What is the capital of Iceland?",["Oslo","Helsinki","Reykjavik","Copenhagen"],"Reykjavik"],
+    ["geography","hard","Which strait separates Europe and Africa?",["Bering Strait","Strait of Gibraltar","Malacca Strait","Bosporus"],"Strait of Gibraltar"],
+    ["geography","easy","Which country is shaped like a boot?",["Greece","Italy","Norway","Chile"],"Italy"],
+
+    // NEPAL GK
+    ["nepal","easy","What is the capital of Nepal?",["Pokhara","Kathmandu","Lalitpur","Biratnagar"],"Kathmandu"],
+    ["nepal","easy","What is the national flower of Nepal?",["Rose","Lali Gurans","Lotus","Sunflower"],"Lali Gurans"],
+    ["nepal","easy","What is the highest mountain in the world?",["K2","Kangchenjunga","Mount Everest","Annapurna"],"Mount Everest"],
+    ["nepal","medium","What is the national animal of Nepal?",["Tiger","Cow","Snow leopard","Yak"],"Cow"],
+    ["nepal","medium","Which is the birthplace of Gautama Buddha?",["Kathmandu","Lumbini","Janakpur","Pokhara"],"Lumbini"],
+    ["nepal","medium","How many provinces does Nepal have?",["5","6","7","8"],"7"],
+    ["nepal","hard","What is the official calendar of Nepal called?",["Vikram Samvat","Gregorian","Hijri","Bikram Sambat"],"Vikram Samvat"],
+    ["nepal","hard","Which is the largest lake in Nepal by area?",["Phewa Lake","Rara Lake","Tilicho Lake","Begnas Lake"],"Rara Lake"],
+    ["nepal","hard","Who is traditionally credited with unifying Nepal?",["Jung Bahadur Rana","Prithvi Narayan Shah","Tribhuvan","Bhimsen Thapa"],"Prithvi Narayan Shah"],
+    ["nepal","easy","What is the national bird of Nepal?",["Peacock","Danphe","Crow","Eagle"],"Danphe"],
+
+    // ENTERTAINMENT
+    ["entertainment","easy","Which movie features the character Elsa?",["Moana","Frozen","Tangled","Brave"],"Frozen"],
+    ["entertainment","easy","What is the name of Harry Potter's school?",["Beauxbatons","Hogwarts","Durmstrang","Ilvermorny"],"Hogwarts"],
+    ["entertainment","easy","Which superhero is also known as the Dark Knight?",["Superman","Iron Man","Batman","Thor"],"Batman"],
+    ["entertainment","medium","Which film won the first Academy Award for Best Animated Feature?",["Shrek","Toy Story","Finding Nemo","Monsters, Inc."],"Shrek"],
+    ["entertainment","medium","Which fictional kingdom is Elsa from?",["Arendelle","Agrabah","Genovia","Narnia"],"Arendelle"],
+    ["entertainment","medium","Which instrument does Sherlock Holmes famously play?",["Piano","Violin","Cello","Flute"],"Violin"],
+    ["entertainment","hard","Who directed the film Inception?",["Steven Spielberg","Christopher Nolan","James Cameron","Ridley Scott"],"Christopher Nolan"],
+    ["entertainment","hard","Which novel inspired the film Blade Runner?",["Dune","Do Androids Dream of Electric Sheep?","Neuromancer","Foundation"],"Do Androids Dream of Electric Sheep?"],
+    ["entertainment","hard","What is the name of the fictional newspaper in the Harry Potter series?",["The Daily Prophet","The Times","The Quibbler","The Wizard Weekly"],"The Daily Prophet"],
+    ["entertainment","easy","Which character lives in a pineapple under the sea?",["Patrick","SpongeBob","Squidward","Sandy"],"SpongeBob"],
+
+    // SPORTS
+    ["sports","easy","How many players are on a football team on the field?",["9","10","11","12"],"11"],
+    ["sports","easy","Which sport uses a racket and shuttlecock?",["Tennis","Badminton","Squash","Table tennis"],"Badminton"],
+    ["sports","easy","How many rings are on the Olympic flag?",["4","5","6","7"],"5"],
+    ["sports","medium","Which country won the FIFA World Cup in 2022?",["France","Brazil","Argentina","Germany"],"Argentina"],
+    ["sports","medium","In tennis, what is a score of zero called?",["Nil","Love","Duck","Blank"],"Love"],
+    ["sports","medium","How many players are on a basketball team on the court?",["4","5","6","7"],"5"],
+    ["sports","hard","Which country hosted the first modern Olympic Games in 1896?",["France","Greece","Italy","United Kingdom"],"Greece"],
+    ["sports","hard","In which sport would you perform a Fosbury Flop?",["Gymnastics","High jump","Pole vault","Long jump"],"High jump"],
+    ["sports","hard","How long is a marathon in kilometres?",["40.0","41.2","42.195","45.0"],"42.195"],
+    ["sports","easy","Which sport is associated with Wimbledon?",["Cricket","Tennis","Golf","Rugby"],"Tennis"],
+
+    // ANIMALS
+    ["animals","easy","What is the largest land animal?",["Giraffe","Elephant","Rhino","Hippopotamus"],"Elephant"],
+    ["animals","easy","Which animal is known as the King of the Jungle?",["Tiger","Lion","Leopard","Cheetah"],"Lion"],
+    ["animals","easy","What do pandas mainly eat?",["Fish","Bamboo","Meat","Grass"],"Bamboo"],
+    ["animals","medium","What is a group of lions called?",["Pack","Herd","Pride","Flock"],"Pride"],
+    ["animals","medium","Which mammal can truly fly?",["Flying squirrel","Bat","Sugar glider","Colugo"],"Bat"],
+    ["animals","medium","How many hearts does an octopus have?",["1","2","3","4"],"3"],
+    ["animals","hard","What is the fastest land animal?",["Lion","Horse","Cheetah","Leopard"],"Cheetah"],
+    ["animals","hard","Which animal has the longest migration?",["Arctic tern","Monarch butterfly","Humpback whale","Albatross"],"Arctic tern"],
+    ["animals","hard","What is the only mammal capable of sustained flight?",["Flying fox","Bat","Sugar glider","Flying squirrel"],"Bat"],
+    ["animals","easy","Which animal is famous for changing its colour?",["Chameleon","Rabbit","Koala","Panda"],"Chameleon"],
+
+    // TECHNOLOGY
+    ["technology","easy","What does CPU stand for?",["Central Processing Unit","Computer Personal Unit","Central Power Utility","Core Program Unit"],"Central Processing Unit"],
+    ["technology","easy","Which company created the iPhone?",["Samsung","Microsoft","Apple","Google"],"Apple"],
+    ["technology","easy","What does Wi-Fi help devices do?",["Print only","Connect wirelessly to a network","Charge batteries","Store files"],"Connect wirelessly to a network"],
+    ["technology","medium","What does HTML stand for?",["HyperText Markup Language","HighText Machine Language","Hyper Transfer Main Link","Home Tool Markup Language"],"HyperText Markup Language"],
+    ["technology","medium","Which digits are used in binary code?",["0 and 1","1 and 2","0 to 9","A and B"],"0 and 1"],
+    ["technology","medium","Who co-founded Microsoft with Paul Allen?",["Steve Jobs","Bill Gates","Mark Zuckerberg","Larry Page"],"Bill Gates"],
+    ["technology","hard","What does SQL stand for?",["Structured Query Language","Simple Question Language","System Query Logic","Sequential Query Link"],"Structured Query Language"],
+    ["technology","hard","Which protocol is commonly used to securely browse websites?",["FTP","HTTP","HTTPS","SMTP"],"HTTPS"],
+    ["technology","hard","What does GPU stand for?",["General Processing Utility","Graphics Processing Unit","Graphical Program Unit","Global Processing Unit"],"Graphics Processing Unit"],
+    ["technology","easy","What does USB stand for?",["Universal Serial Bus","United System Board","User Service Base","Universal Storage Box"],"Universal Serial Bus"],
+
+    // LITERATURE
+    ["literature","easy","Who wrote Romeo and Juliet?",["Charles Dickens","William Shakespeare","Jane Austen","Mark Twain"],"William Shakespeare"],
+    ["literature","easy","Who wrote the Harry Potter books?",["J.R.R. Tolkien","J.K. Rowling","C.S. Lewis","Roald Dahl"],"J.K. Rowling"],
+    ["literature","easy","What is the name of the boy in The Jungle Book?",["Tarzan","Mowgli","Peter","Oliver"],"Mowgli"],
+    ["literature","medium","Who wrote Pride and Prejudice?",["Emily Brontë","Jane Austen","Virginia Woolf","Mary Shelley"],"Jane Austen"],
+    ["literature","medium","Who wrote The Great Gatsby?",["F. Scott Fitzgerald","Ernest Hemingway","George Orwell","John Steinbeck"],"F. Scott Fitzgerald"],
+    ["literature","medium","Which novel begins with 'Call me Ishmael'?",["Moby-Dick","Dracula","The Odyssey","Frankenstein"],"Moby-Dick"],
+    ["literature","hard","Who wrote One Hundred Years of Solitude?",["Jorge Luis Borges","Gabriel García Márquez","Pablo Neruda","Mario Vargas Llosa"],"Gabriel García Márquez"],
+    ["literature","hard","Who wrote the epic poem The Divine Comedy?",["Homer","Dante Alighieri","Virgil","Ovid"],"Dante Alighieri"],
+    ["literature","hard","Which author created the detective Hercule Poirot?",["Arthur Conan Doyle","Agatha Christie","Dorothy Sayers","Raymond Chandler"],"Agatha Christie"],
+    ["literature","easy","Who wrote Charlie and the Chocolate Factory?",["Roald Dahl","Dr. Seuss","Lewis Carroll","E.B. White"],"Roald Dahl"]
+];
+
+// Convert compact questions into objects
+const triviaQuestions = triviaBank.map(item => ({
+    category: item[0],
+    difficulty: item[1],
+    question: item[2],
+    options: item[3],
+    answer: item[4]
+}));
+
+let triviaRound = [];
+let triviaIndex = 0;
+let triviaScoreValue = 0;
+let triviaTimeLeft = 15;
+let triviaTimerInterval = null;
+let triviaAnswered = false;
+let triviaStreak = 0;
+let triviaBestStreak = 0;
+let triviaRewardClaimed = false;
+
+
+// Shuffle helper
+function shuffleTrivia(array) {
+    return [...array].sort(() => Math.random() - 0.5);
+}
+
+
+// START GAME
+function startTrivia() {
+    const category = document.getElementById("triviaCategory").value;
+    const difficulty = document.getElementById("triviaDifficulty").value;
+    const length = Number(document.getElementById("triviaLength").value);
+
+    let available = triviaQuestions.filter(question => {
+        const categoryMatch = category === "mixed" || question.category === category;
+        const difficultyMatch = difficulty === "all" || question.difficulty === difficulty;
+
+        return categoryMatch && difficultyMatch;
+    });
+
+    if (available.length === 0) {
+        alert("No questions found for this selection yet!");
+        return;
+    }
+
+    triviaRound = shuffleTrivia(available).slice(0, length);
+
+    triviaIndex = 0;
+    triviaScoreValue = 0;
+    triviaStreak = 0;
+    triviaBestStreak = 0;
+    triviaRewardClaimed = false;
+
+    document.getElementById("triviaSetup").style.display = "none";
+    document.getElementById("triviaResults").style.display = "none";
+    document.getElementById("triviaGame").style.display = "block";
+
+    showTriviaQuestion();
+}
+
+
+// SHOW QUESTION
+function showTriviaQuestion() {
+    clearInterval(triviaTimerInterval);
+
+    if (triviaIndex >= triviaRound.length) {
+        finishTrivia();
+        return;
+    }
+
+    const question = triviaRound[triviaIndex];
+
+    triviaAnswered = false;
+    triviaTimeLeft = 15;
+
+    document.getElementById("triviaScore").textContent = triviaScoreValue;
+    document.getElementById("triviaTimer").textContent = triviaTimeLeft;
+    document.getElementById("triviaProgress").textContent =
+        `${triviaIndex + 1}/${triviaRound.length}`;
+
+    document.getElementById("triviaProgressBar").style.width =
+        `${(triviaIndex / triviaRound.length) * 100}%`;
+
+    document.getElementById("triviaQuestionCategory").textContent =
+        `${question.category.toUpperCase()} · ${question.difficulty.toUpperCase()}`;
+
+    document.getElementById("triviaQuestion").textContent = question.question;
+
+    document.getElementById("triviaFeedback").textContent = "";
+    document.getElementById("triviaNextButton").style.display = "none";
+
+    const optionsContainer = document.getElementById("triviaOptions");
+    optionsContainer.innerHTML = "";
+
+    shuffleTrivia(question.options).forEach(option => {
+        const button = document.createElement("button");
+
+        button.className = "trivia-option";
+        button.textContent = option;
+        button.onclick = () => chooseTriviaAnswer(button, option);
+
+        optionsContainer.appendChild(button);
+    });
+
+    triviaTimerInterval = setInterval(() => {
+        triviaTimeLeft--;
+
+        document.getElementById("triviaTimer").textContent = triviaTimeLeft;
+
+        if (triviaTimeLeft <= 0) {
+            clearInterval(triviaTimerInterval);
+            triviaAnswered = true;
+            triviaStreak = 0;
+
+            document.querySelectorAll(".trivia-option").forEach(button => {
+                button.disabled = true;
+
+                if (button.textContent === question.answer) {
+                    button.classList.add("correct");
+                }
+            });
+
+            document.getElementById("triviaFeedback").textContent =
+                `⏰ Time's up! The correct answer was ${question.answer}.`;
+
+            document.getElementById("triviaNextButton").style.display = "inline-block";
+        }
+    }, 1000);
+}
+
+
+// CHECK ANSWER
+function chooseTriviaAnswer(button, selectedAnswer) {
+    if (triviaAnswered) return;
+
+    triviaAnswered = true;
+    clearInterval(triviaTimerInterval);
+
+    const question = triviaRound[triviaIndex];
+    const buttons = document.querySelectorAll(".trivia-option");
+
+    buttons.forEach(optionButton => {
+        optionButton.disabled = true;
+
+        if (optionButton.textContent === question.answer) {
+            optionButton.classList.add("correct");
+        }
+    });
+
+    if (selectedAnswer === question.answer) {
+        const points = 10 + triviaTimeLeft;
+        triviaScoreValue += points;
+        triviaStreak++;
+
+        triviaBestStreak = Math.max(triviaBestStreak, triviaStreak);
+
+        button.classList.add("correct");
+
+        document.getElementById("triviaFeedback").textContent =
+            `✨ Correct! +${points} points. ${triviaStreak} in a row!`;
+
+        if (typeof playGameSound === "function") {
+            playGameSound("correct");
+        }
+    } else {
+        triviaStreak = 0;
+        button.classList.add("wrong");
+
+        document.getElementById("triviaFeedback").textContent =
+            `Not quite! The correct answer is ${question.answer}.`;
+        
+        if (typeof playGameSound === "function") {
+            playGameSound("wrong");
+        }
+    }
+
+    document.getElementById("triviaScore").textContent = triviaScoreValue;
+    document.getElementById("triviaNextButton").style.display = "inline-block";
+}
+
+
+// NEXT QUESTION
+function nextTriviaQuestion() {
+    triviaIndex++;
+    showTriviaQuestion();
+}
+
+
+// FINISH ROUND
+function finishTrivia() {
+    clearInterval(triviaTimerInterval);
+
+    document.getElementById("triviaGame").style.display = "none";
+    document.getElementById("triviaResults").style.display = "block";
+
+    const total = triviaRound.length;
+    const correctAnswers = Math.round(triviaScoreValue / 20);
+    const reward = Math.max(5, Math.min(30, Math.floor(triviaScoreValue / 10)));
+
+    document.getElementById("triviaProgressBar").style.width = "100%";
+
+    document.getElementById("triviaFinalScore").textContent =
+        `You finished ${total} questions! Your score: ${triviaScoreValue} points.`;
+
+    document.getElementById("triviaResultEmoji").textContent =
+        triviaScoreValue >= total * 20 ? "🏆" :
+        triviaScoreValue >= total * 10 ? "🌟" : "🌷";
+
+    if (!triviaRewardClaimed) {
+        game.coins += reward;
+        triviaRewardClaimed = true;
+
+        if (typeof saveGame === "function") {
+            saveGame();
+        }
+    }
+
+    document.getElementById("triviaReward").textContent =
+        `You earned ${reward} little coins! ✿ Best streak: ${triviaBestStreak}`;
+    
+    if (typeof playGameSound === "function") {
+        playGameSound("win");
+    }
+}
+
+
+// PLAY AGAIN
+function resetTrivia() {
+    clearInterval(triviaTimerInterval);
+
+    document.getElementById("triviaResults").style.display = "none";
+    document.getElementById("triviaGame").style.display = "none";
+    document.getElementById("triviaSetup").style.display = "block";
+}
