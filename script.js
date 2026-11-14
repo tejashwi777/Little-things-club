@@ -922,3 +922,126 @@ function resetQuizParty() {
 
 document.getElementById("soundToggle").textContent =
     game.arcade.soundOn ? "🔊 Sounds on" : "🔇 Sounds off";
+
+// 🐾 MOCHI POP GAME
+
+let mochiPopScore = 0;
+let mochiPopTime = 20;
+let mochiPopActive = false;
+let mochiCurrentHole = -1;
+let mochiPopTimer = null;
+let mochiPopInterval = null;
+
+function startMochiPop() {
+    if (mochiPopActive) return;
+
+    mochiPopScore = 0;
+    mochiPopTime = 20;
+    mochiPopActive = true;
+
+    document.getElementById("mochiScore").textContent = 0;
+    document.getElementById("mochiTime").textContent = 20;
+    document.getElementById("mochiPopMessage").textContent =
+        "Catch him! Catch him! 🐾";
+
+    document.getElementById("mochiStartButton").textContent =
+        "Playing...";
+
+    showMochiPop();
+
+    mochiPopInterval = setInterval(() => {
+        mochiPopTime--;
+
+        document.getElementById("mochiTime").textContent =
+            mochiPopTime;
+
+        if (mochiPopTime <= 0) {
+            finishMochiPop();
+        }
+    }, 1000);
+}
+
+function showMochiPop() {
+    const holes = document.querySelectorAll(".pop-hole");
+
+    holes.forEach(hole => {
+        hole.classList.remove("active", "caught");
+        hole.textContent = "♡";
+        hole.onclick = null;
+    });
+
+    const randomIndex = Math.floor(Math.random() * holes.length);
+    mochiCurrentHole = randomIndex;
+
+    const target = holes[randomIndex];
+
+    target.textContent = "🐱";
+    target.classList.add("active");
+
+    target.onclick = () => {
+        if (!mochiPopActive || mochiCurrentHole !== randomIndex) return;
+
+        mochiPopScore++;
+        document.getElementById("mochiScore").textContent =
+            mochiPopScore;
+
+        target.textContent = "💗";
+        target.classList.add("caught");
+
+        mochiCurrentHole = -1;
+
+        if (typeof playGameSound === "function") {
+            playGameSound("match");
+        }
+
+        clearTimeout(mochiPopTimer);
+        mochiPopTimer = setTimeout(showMochiPop, 250);
+    };
+
+    clearTimeout(mochiPopTimer);
+    mochiPopTimer = setTimeout(() => {
+        if (mochiPopActive && mochiCurrentHole === randomIndex) {
+            showMochiPop();
+        }
+    }, 850);
+}
+
+function finishMochiPop() {
+    mochiPopActive = false;
+
+    clearInterval(mochiPopInterval);
+    clearTimeout(mochiPopTimer);
+
+    document.querySelectorAll(".pop-hole").forEach(hole => {
+        hole.classList.remove("active", "caught");
+        hole.textContent = "♡";
+        hole.onclick = null;
+    });
+
+    mochiCurrentHole = -1;
+
+    let rewardMessage = "";
+
+    if (game.arcade.mochiPopRewardDate !== arcadeToday()) {
+        const reward = Math.min(mochiPopScore, 15);
+
+        game.coins += reward;
+        game.arcade.mochiPopRewardDate = arcadeToday();
+
+        rewardMessage = ` You earned ${reward} coins! 🪙`;
+
+        saveGame();
+    } else {
+        rewardMessage = " Daily coins already collected!";
+    }
+
+    document.getElementById("mochiPopMessage").textContent =
+        `Time's up! You caught Mochi ${mochiPopScore} times!${rewardMessage}`;
+
+    document.getElementById("mochiStartButton").textContent =
+        "Play again ♡";
+
+    if (typeof playGameSound === "function") {
+        playGameSound("win");
+    }
+}
