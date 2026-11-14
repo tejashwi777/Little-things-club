@@ -26,7 +26,7 @@ function saveGame() {
 }
 
 
-// Navigation
+
 function showPage(pageName) {
     document.querySelectorAll(".page").forEach(page => {
         page.classList.remove("active");
@@ -49,12 +49,18 @@ function showPage(pageName) {
     if (pageName === "collection") {
         renderCollection();
     }
+
     if (pageName === "games") {
-    renderArcade();
-}
+        renderArcade();
+    }
+
+    if (pageName === "trivia") {
+        // Trivia initialization will go here.
+    }
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
 
 
 // Sidebar navigation
