@@ -277,6 +277,41 @@
         </section>
 <!-- LITTLE GAMES ARCADE -->
 <section class="page" id="games">
+
+<div class="arcade-card mochi-pop-card">
+    <div class="game-heading">
+        <span class="game-emoji">🐾</span>
+        <div>
+            <h3>Mochi Pop!</h3>
+            <p>Catch Mochi before he disappears!</p>
+        </div>
+    </div>
+
+    <div class="mochi-pop-stats">
+        <span>⏱️ Time: <b id="mochiTime">20</b>s</span>
+        <span>⭐ Score: <b id="mochiScore">0</b></span>
+    </div>
+
+    <div class="mochi-pop-grid" id="mochiPopGrid">
+        <button class="pop-hole" data-hole="0">♡</button>
+        <button class="pop-hole" data-hole="1">♡</button>
+        <button class="pop-hole" data-hole="2">♡</button>
+        <button class="pop-hole" data-hole="3">♡</button>
+        <button class="pop-hole" data-hole="4">♡</button>
+        <button class="pop-hole" data-hole="5">♡</button>
+        <button class="pop-hole" data-hole="6">♡</button>
+        <button class="pop-hole" data-hole="7">♡</button>
+        <button class="pop-hole" data-hole="8">♡</button>
+    </div>
+
+    <p id="mochiPopMessage">Ready to catch Mochi? 🐱</p>
+
+    <button class="game-button" id="mochiStartButton"
+        onclick="startMochiPop()">
+        Let's play! ♡
+    </button>
+</div>
+
     <span class="eyebrow">A LITTLE PLAYTIME</span>
     <h1>Little Games Arcade <span>🎮</span></h1>
     <p class="subtitle">Take a tiny break and win some little coins.</p>
