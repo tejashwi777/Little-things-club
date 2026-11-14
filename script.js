@@ -621,3 +621,304 @@ function renderArcade() {
 }
 
 renderArcade();
+// =====================================
+// QUIZ PARTY 🎉
+// =====================================
+
+game.arcade ||= {};
+game.arcade.partyDate ||= "";
+game.arcade.soundOn ??= true;
+
+const partyQuestions = {
+    general: [
+        { q: "Which is the largest continent?", o: ["Africa", "Asia", "Europe", "Australia"], a: "Asia" },
+        { q: "How many days are in a leap year?", o: ["364", "365", "366", "367"], a: "366" },
+        { q: "Which language is primarily spoken in Brazil?", o: ["Spanish", "Portuguese", "French", "Italian"], a: "Portuguese" },
+        { q: "What is the currency of Japan?", o: ["Won", "Yuan", "Yen", "Baht"], a: "Yen" },
+        { q: "Which is the smallest prime number?", o: ["0", "1", "2", "3"], a: "2" }
+    ],
+
+    animals: [
+        { q: "What is a baby cat called?", o: ["Puppy", "Kitten", "Cub", "Calf"], a: "Kitten" },
+        { q: "Which animal is famous for changing its colour?", o: ["Chameleon", "Rabbit", "Elephant", "Horse"], a: "Chameleon" },
+        { q: "What do pandas mostly eat?", o: ["Bamboo", "Fish", "Grasshoppers", "Berries"], a: "Bamboo" },
+        { q: "Which mammal can truly fly?", o: ["Flying squirrel", "Bat", "Sugar glider", "Lemur"], a: "Bat" },
+        { q: "What is a group of lions called?", o: ["Pack", "Herd", "Pride", "Flock"], a: "Pride" }
+    ],
+
+    food: [
+        { q: "Which fruit is known for having its seeds on the outside?", o: ["Apple", "Strawberry", "Mango", "Peach"], a: "Strawberry" },
+        { q: "Which country is sushi traditionally associated with?", o: ["China", "Japan", "Thailand", "India"], a: "Japan" },
+        { q: "What is the main ingredient in guacamole?", o: ["Avocado", "Cucumber", "Spinach", "Peas"], a: "Avocado" },
+        { q: "Which spice gives turmeric its yellow colour?", o: ["Paprika", "Turmeric", "Cinnamon", "Clove"], a: "Turmeric" },
+        { q: "What is tofu mainly made from?", o: ["Rice", "Soybeans", "Potatoes", "Corn"], a: "Soybeans" }
+    ],
+
+    space: [
+        { q: "Which planet has the most prominent ring system?", o: ["Mars", "Saturn", "Venus", "Mercury"], a: "Saturn" },
+        { q: "What is at the centre of our solar system?", o: ["Earth", "The Moon", "The Sun", "Jupiter"], a: "The Sun" },
+        { q: "Which planet is closest to the Sun?", o: ["Venus", "Earth", "Mercury", "Mars"], a: "Mercury" },
+        { q: "What is Earth's natural satellite?", o: ["The Sun", "The Moon", "Mars", "Venus"], a: "The Moon" },
+        { q: "What do astronauts wear in space to stay safe?", o: ["Raincoat", "Spacesuit", "Lab coat", "Wetsuit"], a: "Spacesuit" }
+    ]
+};
+
+let partyRound = [];
+let partyIndex = 0;
+let partyPoints = 0;
+let partyAnswered = false;
+let partyPractice = false;
+
+
+// SOUND EFFECTS ♡
+
+let gameAudioContext = null;
+
+function playGameSound(type = "pop") {
+    if (!game.arcade.soundOn) return;
+
+    try {
+        const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) return;
+
+        gameAudioContext ||= new AudioContextClass();
+
+        if (gameAudioContext.state === "suspended") {
+            gameAudioContext.resume();
+        }
+
+        const sounds = {
+            pop: [440, 0.08],
+            correct: [660, 0.16],
+            win: [880, 0.3],
+            wrong: [220, 0.15],
+            sparkle: [1040, 0.12]
+        };
+
+        const [frequency, duration] = sounds[type] || sounds.pop;
+
+        const oscillator = gameAudioContext.createOscillator();
+        const gain = gameAudioContext.createGain();
+
+        oscillator.type = "sine";
+        oscillator.frequency.setValueAtTime(
+            frequency,
+            gameAudioContext.currentTime
+        );
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            gameAudioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.12,
+            gameAudioContext.currentTime + 0.02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            gameAudioContext.currentTime + duration
+        );
+
+        oscillator.connect(gain);
+        gain.connect(gameAudioContext.destination);
+
+        oscillator.start();
+        oscillator.stop(gameAudioContext.currentTime + duration);
+
+    } catch (error) {
+        console.log("Game sound unavailable:", error);
+    }
+}
+
+function toggleGameSound() {
+    game.arcade.soundOn = !game.arcade.soundOn;
+
+    const button = document.getElementById("soundToggle");
+
+    button.textContent = game.arcade.soundOn
+        ? "🔊 Sounds on"
+        : "🔇 Sounds off";
+
+    saveGame();
+
+    if (game.arcade.soundOn) {
+        playGameSound("sparkle");
+    }
+}
+
+
+// START A QUIZ ROUND
+
+function startQuizParty() {
+    const category = document.getElementById("partyCategory").value;
+
+    partyRound = [...partyQuestions[category]]
+        .sort(() => Math.random() - 0.5);
+
+    partyIndex = 0;
+    partyPoints = 0;
+    partyAnswered = false;
+
+    partyPractice = game.arcade.partyDate === arcadeToday();
+
+    document.getElementById("partyStart").style.display = "none";
+    document.getElementById("partyResult").style.display = "none";
+    document.getElementById("partyGame").style.display = "block";
+
+    document.getElementById("partyScore").textContent = "0";
+
+    renderPartyQuestion();
+
+    playGameSound("pop");
+}
+
+
+// SHOW A QUESTION
+
+function renderPartyQuestion() {
+    const current = partyRound[partyIndex];
+
+    partyAnswered = false;
+
+    document.getElementById("partyQuestionNumber").textContent =
+        `QUESTION ${partyIndex + 1}/5`;
+
+    document.getElementById("partyProgressBar").style.width =
+        `${(partyIndex / 5) * 100}%`;
+
+    document.getElementById("partyQuestion").textContent = current.q;
+
+    document.getElementById("partyFeedback").textContent =
+        "Choose your answer ♡";
+
+    const optionsBox = document.getElementById("partyOptions");
+    optionsBox.innerHTML = "";
+
+    current.o.forEach(option => {
+        const button = document.createElement("button");
+
+        button.className = "quiz-option party-option";
+        button.textContent = option;
+
+        button.addEventListener("click", () => {
+            answerPartyQuestion(button, option);
+        });
+
+        optionsBox.appendChild(button);
+    });
+}
+
+
+// CHECK AN ANSWER
+
+function answerPartyQuestion(button, answer) {
+    if (partyAnswered) return;
+
+    partyAnswered = true;
+
+    const current = partyRound[partyIndex];
+    const buttons = document.querySelectorAll(".party-option");
+
+    buttons.forEach(option => {
+        option.disabled = true;
+
+        if (option.textContent === current.a) {
+            option.classList.add("correct");
+        }
+    });
+
+    if (answer === current.a) {
+        partyPoints++;
+        button.classList.add("correct");
+
+        document.getElementById("partyFeedback").textContent =
+            "Yayyy! You got it right! ✨";
+
+        playGameSound("correct");
+
+    } else {
+        button.classList.add("wrong");
+
+        document.getElementById("partyFeedback").textContent =
+            `Almost! The answer was ${current.a} ♡`;
+
+        playGameSound("wrong");
+    }
+
+    document.getElementById("partyScore").textContent = partyPoints;
+
+    setTimeout(() => {
+        partyIndex++;
+
+        if (partyIndex < partyRound.length) {
+            renderPartyQuestion();
+        } else {
+            finishQuizParty();
+        }
+    }, 1100);
+}
+
+
+// FINAL SCORE
+
+function finishQuizParty() {
+    document.getElementById("partyGame").style.display = "none";
+    document.getElementById("partyResult").style.display = "block";
+
+    document.getElementById("partyProgressBar").style.width = "100%";
+
+    const emoji = partyPoints === 5
+        ? "🏆"
+        : partyPoints >= 3
+            ? "🌷"
+            : "🧸";
+
+    const title = partyPoints === 5
+        ? "PERFECT SCORE!"
+        : partyPoints >= 3
+            ? "You did amazing!"
+            : "Good try, little star!";
+
+    document.getElementById("partyResultEmoji").textContent = emoji;
+    document.getElementById("partyResultTitle").textContent = title;
+
+    if (!partyPractice) {
+        const reward = partyPoints * 2;
+
+        game.coins += reward;
+        game.arcade.partyDate = arcadeToday();
+
+        saveGame();
+
+        document.getElementById("partyResultText").textContent =
+            `You got ${partyPoints}/5 and earned ${reward} little coins! ♡`;
+
+        showToast(`Quiz Party complete! +${reward} coins ✿`);
+
+    } else {
+        document.getElementById("partyResultText").textContent =
+            `You got ${partyPoints}/5! Today's reward was already collected, but you can still practise ♡`;
+    }
+
+    playGameSound("win");
+}
+
+
+// PLAY AGAIN
+
+function resetQuizParty() {
+    document.getElementById("partyResult").style.display = "none";
+    document.getElementById("partyStart").style.display = "block";
+
+    playGameSound("pop");
+}
+
+
+// INITIAL SOUND BUTTON STATE
+
+document.getElementById("soundToggle").textContent =
+    game.arcade.soundOn ? "🔊 Sounds on" : "🔇 Sounds off";
