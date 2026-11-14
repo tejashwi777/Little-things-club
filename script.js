@@ -1207,24 +1207,41 @@ function shuffleTrivia(array) {
 
 
 // START GAME
+
 function startTrivia() {
     const category = document.getElementById("triviaCategory").value;
     const difficulty = document.getElementById("triviaDifficulty").value;
     const length = Number(document.getElementById("triviaLength").value);
 
-    let available = triviaQuestions.filter(question => {
-        const categoryMatch = category === "mixed" || question.category === category;
-        const difficultyMatch = difficulty === "all" || question.difficulty === difficulty;
-
-        return categoryMatch && difficultyMatch;
+    // First, get all questions from the chosen category
+    const categoryQuestions = triviaQuestions.filter(question => {
+        return category === "mixed" || question.category === category;
     });
 
-    if (available.length === 0) {
-        alert("No questions found for this selection yet!");
-        return;
+    // Get questions matching the selected difficulty
+    let preferredQuestions = categoryQuestions.filter(question => {
+        return difficulty === "all" || question.difficulty === difficulty;
+    });
+
+    // If there aren't enough, fill the round with other difficulties
+    if (preferredQuestions.length < length) {
+        const remainingQuestions = categoryQuestions.filter(question => {
+            return !preferredQuestions.includes(question);
+        });
+
+        preferredQuestions = [
+            ...preferredQuestions,
+            ...shuffleTrivia(remainingQuestions)
+        ];
     }
 
-    triviaRound = shuffleTrivia(available).slice(0, length);
+    // Shuffle and select the requested number
+    triviaRound = shuffleTrivia(preferredQuestions).slice(0, length);
+
+    if (triviaRound.length === 0) {
+        alert("No questions available!");
+        return;
+    }
 
     triviaIndex = 0;
     triviaScoreValue = 0;
@@ -1238,7 +1255,6 @@ function startTrivia() {
 
     showTriviaQuestion();
 }
-
 
 // SHOW QUESTION
 function showTriviaQuestion() {
