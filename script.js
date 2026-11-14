@@ -55,6 +55,9 @@ function showPage(pageName) {
 
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
+if (pageName === "trivia") {
+    // Trivia page will be initialized here.
+}
 
 // Sidebar navigation
 document.querySelectorAll(".nav-btn").forEach(button => {
