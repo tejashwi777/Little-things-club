@@ -444,6 +444,102 @@
     </button>
 </div>
 </section>
+
+<section class="page" id="trivia">
+
+    <div class="trivia-header">
+        <span class="eyebrow">TEST YOUR KNOWLEDGE</span>
+        <h1>Trivia World 🌍</h1>
+        <p class="subtitle">
+            A little curiosity goes a long way.
+        </p>
+    </div>
+
+    <div class="trivia-setup" id="triviaSetup">
+
+        <h2>Choose your adventure ✨</h2>
+
+        <label for="triviaCategory">Choose a category</label>
+        <select id="triviaCategory">
+            <option value="mixed">🌈 Mixed Trivia</option>
+            <option value="general">🌍 General Knowledge</option>
+            <option value="science">🔬 Science</option>
+            <option value="history">🏛️ History</option>
+            <option value="geography">🗺️ Geography</option>
+            <option value="nepal">🇳🇵 Nepal GK</option>
+            <option value="entertainment">🎬 Entertainment</option>
+            <option value="sports">⚽ Sports</option>
+            <option value="animals">🐾 Animals</option>
+            <option value="technology">💻 Technology</option>
+            <option value="literature">📚 Literature</option>
+        </select>
+
+        <label for="triviaDifficulty">Difficulty</label>
+        <select id="triviaDifficulty">
+            <option value="easy">Easy 🌱</option>
+            <option value="medium" selected>Medium 🌷</option>
+            <option value="hard">Hard 🔥</option>
+            <option value="all">Surprise me!</option>
+        </select>
+
+        <label for="triviaLength">Number of questions</label>
+        <select id="triviaLength">
+            <option value="10">10 questions</option>
+            <option value="20">20 questions</option>
+            <option value="30">30 questions</option>
+        </select>
+
+        <button class="game-button" onclick="startTrivia()">
+            Start Trivia ♡
+        </button>
+
+    </div>
+
+    <div id="triviaGame" style="display:none;">
+
+        <div class="trivia-stats">
+            <span>⭐ Score: <b id="triviaScore">0</b></span>
+            <span>⏳ Time: <b id="triviaTimer">15</b>s</span>
+            <span>📖 <b id="triviaProgress">1/10</b></span>
+        </div>
+
+        <div class="trivia-progress">
+            <div id="triviaProgressBar"></div>
+        </div>
+
+        <div class="trivia-question-card">
+            <span id="triviaQuestionCategory">GENERAL KNOWLEDGE</span>
+            <h2 id="triviaQuestion">Your question goes here</h2>
+
+            <div id="triviaOptions" class="trivia-options"></div>
+
+            <p id="triviaFeedback"></p>
+
+            <button id="triviaNextButton"
+                class="game-button"
+                onclick="nextTriviaQuestion()"
+                style="display:none;">
+                Next Question →
+            </button>
+        </div>
+
+    </div>
+
+    <div id="triviaResults" style="display:none;">
+        <div class="trivia-result-card">
+            <div id="triviaResultEmoji">🏆</div>
+            <h2>Round complete!</h2>
+            <p id="triviaFinalScore"></p>
+            <p id="triviaReward"></p>
+
+            <button class="game-button" onclick="resetTrivia()">
+                Play Again ♡
+            </button>
+        </div>
+    </div>
+
+</section>
+
         <footer>made with a little magic & lots of love · little things club ♡</footer>
 
     </main>
