@@ -1412,3 +1412,78 @@ footer {
         transition: none !important;
     }
 }
+
+/* MOCHI POP GAME */
+
+.mochi-pop-card {
+    text-align: center;
+}
+
+.mochi-pop-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 18px 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.mochi-pop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 310px;
+    margin: 20px auto;
+}
+
+.pop-hole {
+    aspect-ratio: 1;
+    border: 2px solid #eee5fa;
+    border-radius: 18px;
+    background: #f5effc;
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+}
+
+.pop-hole:hover {
+    transform: scale(1.04);
+}
+
+.pop-hole.active {
+    background: #f8ddeb;
+    border-color: #e9b8d1;
+    animation: mochiPop 0.25s ease;
+}
+
+@keyframes mochiPop {
+    0% { transform: scale(0.7); }
+    100% { transform: scale(1); }
+}
+
+.pop-hole.caught {
+    background: #e9e0fa;
+    transform: scale(0.9);
+}
+
+#mochiPopMessage {
+    color: var(--muted);
+    font-size: 14px;
+    min-height: 22px;
+    margin: 12px 0;
+}
+
+.game-button {
+    border: none;
+    border-radius: 20px;
+    padding: 12px 25px;
+    background: var(--lavender);
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    transition: 0.2s;
+}
+
+.game-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
