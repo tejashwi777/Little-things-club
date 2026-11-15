@@ -1256,7 +1256,7 @@ function startTrivia() {
     showTriviaQuestion();
 }
 
-// SHOW QUESTIO
+// SHOW QUESTION
 function showTriviaQuestion() {
     clearInterval(triviaTimerInterval);
 
