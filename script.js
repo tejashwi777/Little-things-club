@@ -1326,7 +1326,7 @@ function showTriviaQuestion() {
 }
 
 
-// CHECK ANSWER
+// CHECK ANSWE
 function chooseTriviaAnswer(button, selectedAnswer) {
     if (triviaAnswered) return;
 
